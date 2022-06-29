@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const verif = require("../middleware/VerifyToken");
 
 const { findUsers,findUserById,addUser,editUser,deleteUser } = require("../controllers/userController");
 
@@ -9,17 +10,13 @@ router.get('/', findUsers);
 // Find User By Id Route
 router.get('/:id', findUserById);
 
-
 // Create User Route
-router.post("/", addUser);
-
+router.post("/", verif, addUser);
 
 // Edit User Data Route
-router.post("/:id", editUser);
-
+router.post("/:id", verif, editUser);
 
 // Delete User Route
-router.delete("/:id", deleteUser);
-
+router.delete("/:id", verif, deleteUser);
 
 module.exports = router;

@@ -1,20 +1,19 @@
 require("dotenv").config();
 
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var jwt = require("jsonwebtoken");
-var cors = require("cors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const jwt = require("jsonwebtoken");
+const cors = require("cors");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var cardRouter = require("./routes/card");
-var authRouter = require("./routes/auth");
-var historyRouter = require("./routes/history");
-var verif = require("./middleware/VerifyToken");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const cardRouter = require("./routes/card");
+const authRouter = require("./routes/auth");
+const historyRouter = require("./routes/history");
 
-var app = express();
+const app = express();
 
 app.use(logger("dev"));
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
@@ -25,11 +24,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/0", authRouter);
-// app.use("/users", usersRouter);
-app.use("/users", verif, usersRouter);
-// app.use("/card", cardRouter);
-app.use("/card", verif, cardRouter);
-// app.use("/history", historyRouter);
-app.use("/history", verif, historyRouter);
+app.use("/users", usersRouter);
+// app.use("/users", verif, usersRouter);
+app.use("/card", cardRouter);
+// app.use("/card", verif, cardRouter);
+app.use("/history", historyRouter);
+// app.use("/history", verif, historyRouter);
 
 module.exports = app;

@@ -9,7 +9,7 @@ const { User } = require("../models");
 const v = new Validator();
 
 // Register Function
-const register = async(req, res) => {
+const register =(req, res) => {
   try {
     const schema = {
       nama: "string",

@@ -1,5 +1,6 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const verif = require("../middleware/VerifyToken");
 
 const { findHistory, findHistoryById, addHistory, editHistory, deleteHistory } = require("../controllers/historyController")
 
@@ -10,12 +11,12 @@ router.get("/", findHistory);
 router.get("/:id", findHistoryById);
 
 // Create History Route
-router.post("/", addHistory);
+router.post("/", verif, addHistory);
 
 // Edit History Data Route
-router.post("/:id", editHistory);
+router.post("/:id", verif, editHistory);
 
 // Delete History Route
-router.delete("/:id", deleteHistory);
+router.delete("/:id", verif, deleteHistory);
 
 module.exports = router;
